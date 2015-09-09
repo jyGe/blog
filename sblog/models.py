@@ -26,3 +26,4 @@ class Blog(models.Model):
 
 	def __str__(self):
 		return '%s %s %s' %(self.content, self.author, self.publish_time) 
+

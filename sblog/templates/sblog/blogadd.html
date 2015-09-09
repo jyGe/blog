@@ -1,0 +1,21 @@
+{% extends "sblog/base.html" %}
+
+{% block title %} 发布文字 {% endblock %}   
+
+{% block content %} 
+
+<form action="" method="post">
+    {% csrf_token %} 
+    <div class="field">
+        <label for="id_caption">Title: </label>
+        {{ form.caption }}
+    </div>
+    <div class="field">        
+        <label for="id_content">Content: </label>
+        {{ form.content }}
+    </div>
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="save and add">
+    </div>
+</form>
+{% endblock %}

@@ -7,5 +7,6 @@
         <h3><a href="{% url 'sblog:detailblog' blog.id %}">{{ blog.caption }}</a></h3>
         <div>{{ blog.content}} </div> 
     {% endfor %}     
+    <a class="btn" href="{% url 'sblog:addblog' %}"><i class="icon-plus"></i> add new blog</a>
 </div>    
 {% endblock %}
