@@ -41,3 +41,11 @@ def add_blog(request):
 		form = BlogForm()
 
 	return render_to_response('sblog/blogadd.html', {'form': form}, context_instance=RequestContext(request))
+
+def delete_blog(request, blog_id):
+	blog = get_object_or_404(Blog, pk=blog_id)
+	if blog:
+		blog.delete()
+		return HttpResponseRedirect('/sblog/')
+	blogs = Blog.objects.all()
+	return render_to_response('bloglist.html', {'blogs': blogs})

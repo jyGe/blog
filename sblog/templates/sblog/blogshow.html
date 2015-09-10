@@ -8,5 +8,7 @@
 　　<h2>blog show</h2>
     <h4>{{ blog.caption }}</h4>
     <div>{{ blog.content }} </div>
+    <a href="{% url 'sblog:delblog' blog.pk %}" title="delete"><i class="icon-trash"></i>delete this</a>
+</div>   
 </div>    
 {% endblock %}
