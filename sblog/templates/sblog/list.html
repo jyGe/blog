@@ -1,14 +1,9 @@
-{% extends "sblog/base.html" %}
-{% block title %} Blog List {% endblock %}
-
-{% block content %}
 <div class="content">
     {% for blog in blogs %}
         <h3><a href="{% url 'sblog:detailblog' blog.id %}">{{ blog.caption }}</a></h3>
         <div><p>{{ blog.content}}</p></div> 
     {% endfor %}     
-    <a class="btn" href="{% url 'sblog:addblog' %}" value="{{ choice.id }}"><i class="icon-plus"></i> add new blog</a>
-</div>    
+</div>  
 
 <div class="pagination">
     <span class="step-links">
@@ -25,5 +20,3 @@
         {% endif %}
     </span>
 </div>
-
-{% endblock %}

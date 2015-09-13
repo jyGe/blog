@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'sblog/style.css' %}"/>
+
 <head>
     <meta charset="UTF-8" />
     <title>
@@ -8,12 +11,47 @@
 </head>
 
 <body>
-    <h1>My blog</h1>
+<style>
+*{ margin:0; padding:0; list-style:none;}
+.header{ width:100%; background:#F5F5F5;}
+.nav{ width:1000px; margin:0 auto; overflow:hidden;}
+.nav ul li{ height:40px; line-height:40px; float:left; padding:10px 5px; margin:0px 5px;position:relative;}
+.nav ul li a{ color:#666; font-family: arial; font-size:14px; text-decoration:none; font-weight: bold;}
+.nav ul li a:hover{ color:#000; text-decoration:none;}
+.nav ul li span{ display:block; position:absolute; width:0px; height:0px; background:#1FAEFF; top:58px; left:50%;}
+</style>
+
+<div class="header">
+<div class="nav">
+    <ul>
+        <li><a href=''>Blog</a><span></span></li>
+        <li><a href=''>About me</a><span></span></li>
+    </ul>
+</div>
+</div>
     {% block content %}
     {% endblock %}
     {% block footer %}
     {# 任何每个页面都可能修改的文本区域的页脚 #}
-        <p>Thanks for visiting my site! </p>
+        <p class="arial">Thanks for visiting my site! </p>
     {% endblock %}
 </body>
+<script src="http://www.lanrenzhijia.com/ajaxjs/jquery.min.js"></script>
+<script>
+$(function(){
+    $('.nav li').hover(function(){
+        $('span',this).stop().css('height','2px');
+        $('span',this).animate({
+            left:'0',
+            width:'100%',
+            right:'0'
+        },0);
+    },function(){
+        $('span',this).stop().animate({
+            left:'50%',
+            width:'0'
+        },0);
+    });
+});
+</script>
 </html>

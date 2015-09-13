@@ -7,14 +7,28 @@ from django.core.urlresolvers import reverse
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
-class BlogListView(generic.ListView):
-	template_name = 'sblog/bloglist.html'
-	context_object_name = 'blogs'
+# class BlogListView(generic.ListView):
+# 	template_name = 'sblog/bloglist.html'
+# 	context_object_name = 'blogs'
 
-	def get_queryset(self):
-		return Blog.objects.all()
+# 	def get_queryset(self):
+# 		return Blog.objects.all()
+def listing(request):
+	blog_list = Blog.objects.all()
+	paginator = Paginator(blog_list, 2)
+
+	page = request.GET.get('page')
+	try:
+		blogs = paginator.page(page)
+	except PageNotAnInteger:
+		blogs = paginator.page(1)
+	except EmptyPage:
+		blogs = paginator.page(paginator.num_pages)
+
+	return render_to_response('sblog/bloglist.html', {'blogs': blogs})
 
 class BlogDtailView(generic.DetailView):
 	model = Blog   

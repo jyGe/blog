@@ -7,9 +7,9 @@
 
 
 {% block content %}
-<div class="content">
-    <h4>{{ blog.caption }}</h4>
-    <div>{{ blog.content }} </div>
+<div class="content" bgcolor="yellow">
+    <h4><p>{{ blog.caption }}</p></h4>
+    <div><p>{{ blog.content }}</p></div>
     <a href="{% url 'sblog:delblog' blog.pk %}" title="delete"><i class="icon-trash"></i>delete this</a>
 </div>   
 </div>    
@@ -23,7 +23,7 @@
     {% for comment in blog_com %}
         <div class="container-fluid none-padding">
             <p class="muted">
-                <small>{{ comment.user }}</small>
+                <small>{{ comment.user_name }}</small>
                 <small>{{ comment.submit_date|date:"F,j,Y" }}</small>
             </p>
             {{ comment.comment }}           
@@ -45,12 +45,7 @@
                 {{ blog_form.site }}
                 {{ blog_form.submit_date }}
                 {{ blog_form.security_hash }}
-                <div class="control-group">
-                    <label class="control-label" for="id_name">name: </label>
-                    <div class="controls">
-                        <input type="text" id="id_name" class="input-xlarge" name="name" placeholder="please enter name" required="required">
-                    </div>
-                </div>
+                name:<div><input type="text" placeholder="please enter name"></div>
                 <div class="control-group">
                     <label class="control-label" for="id_email">email: </label>
                     <div class="controls">
@@ -67,8 +62,7 @@
                 <div class="form-actions">
                     <input class="btn btn-info" type="submit" name="submit" value="Post">
                     {# <input class="btn btn-info" type="submit" name="preview" value="Preview"> #}
-                    <input type='hidden' name='next' value='{% url 
-                    "sblog:detailblog" blog.pk %}'/>
+                    <input type='hidden' name='next' value='{% url "sblog:detailblog" blog.pk %}'/>
                 </div>
                 </fieldset>
             </form> 
