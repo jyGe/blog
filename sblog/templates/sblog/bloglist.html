@@ -2,28 +2,66 @@
 {% block title %} Blog List {% endblock %}
 
 {% block content %}
-<div class="content">
-    {% for blog in blogs %}
-        <h3><a href="{% url 'sblog:detailblog' blog.id %}">{{ blog.caption }}</a></h3>
-        <div><p>{{ blog.content}}</p></div> 
-    {% endfor %}     
-    <a class="btn" href="{% url 'sblog:addblog' %}" value="{{ choice.id }}"><i class="icon-plus"></i> add new blog</a>
-</div>    
+<!-- <a class="btn" href="{% url 'sblog:addblog' %}" value="{{ choice.id }}"><i class="icon-plus"></i> add new blog</a> -->
 
-<div class="pagination">
-    <span class="step-links">
-        {% if blogs.has_previous %}
-            <a href="?page={{ blogs.previous_page_number }}">previous</a>
-        {% endif %}
+<div class="container">
+  <div class="blog-header">
+    <h1 class="blog-title">Blogs</h1>
+    <p class="lead blog-description">Blogs published recently</p>
+  </div>
 
-        <span class="current">
-            Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
-        </span>
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+      	{% for blog in blogs %}
+			<div class="blog-post">
+				<h2 class="blog-post-title"><a href="{% url 'sblog:detailblog' blog.id %}">{{ blog.caption }}</a></h2>
+				<p class="blog-post-meta">{{ blog.publish_time }} by {{ blog.author }}</p>
+				<p>{{ blog.content}}</p>
+			</div><!-- /.blog-post -->
+      {% endfor %}
 
-        {% if blogs.has_next %}
-            <a href="?page={{ blogs.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-</div>
+      <nav>
+        <ul class="pager">
+        	{% if blogs.has_previous %}
+          		<li class="previous"><a href="?page={{ blogs.previous_page_number }}"><span aria-hidden="true">&larr;</span>Previous</a></li>
+          	{% endif %}
+          	{% if blogs.has_next %}
+        		<li class="next"><a href="?page={{ blogs.next_page_number }}">Next<span aria-hidden="true">&rarr;</span></a></li>
+        	{% endif %}
+        </ul>
+      </nav>
+    </div><!-- /.blog-main -->
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>jyGe</h4>
+        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+      </div>
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          <li><a href="#">September 2015</a></li>
+          <li><a href="#">August 2015</a></li>
+          <li><a href="#">July 2015</a></li>
+          <li><a href="#">June 2015</a></li>
+          <li><a href="#">May 2015</a></li>
+          <li><a href="#">April 2015</a></li>
+          <li><a href="#">March 2015</a></li>
+          <li><a href="#">February 2015</a></li>
+          <li><a href="#">January 2015</a></li>
+          <li><a href="#">December 2014</a></li>
+          <li><a href="#">November 2014</a></li>
+          <li><a href="#">October 2014</a></li>
+        </ol>
+      </div>
+      <div class="sidebar-module">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="https://github.com/jyGe">GitHub</a></li>
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+  </div><!-- /.row -->
+</div><!-- /.container -->
 
 {% endblock %}
