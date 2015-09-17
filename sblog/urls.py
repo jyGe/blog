@@ -9,6 +9,7 @@ urlpatterns = [
 		name='detailblog'),
 	url(r'^add/$', views.add_blog, name='addblog'),
 	url(r'^blog/(?P<blog_id>[0-9]+)/del/$', views.delete_blog, name='delblog'),
+	# url(r'^blog/tag/(?P<blog_id>[0-9]+)/$')
 
 	# url: about me
 ]

@@ -4,18 +4,35 @@
 
 {% block content %} 
 
-<form action="" method="post">
-    {% csrf_token %} 
-    <div class="field">
-        <label for="id_caption">Title: </label>
-        {{ form.caption }}
+<div class="container">
+    <div class="blog-header">
+        <h1>Add blogs</h1>
     </div>
-    <div class="field">        
-        <label for="id_content">Content: </label>
-        {{ form.content }}
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            <form action="" method="post">
+                {% csrf_token %} 
+                <div class="field">
+                    <label>Title: </label>
+                    <div>{{ form.caption }}</div>
+                </div>
+                <div class="field">
+                    <label>Tags: </label>
+                        {% if tag.errors %}
+                            <div>wrong?</div>
+                        {% endif %}
+                    <div>{{ tag.tag_name }}</div>
+                </div>
+                <div class="field">        
+                    <label>Content: </label>
+                    <div>{{ form.content }}</div>
+                </div>
+                <div class="form-actions">
+                    <input class="btn btn-primary" type="submit" value="save and add">
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-actions">
-        <input class="btn btn-primary" type="submit" value="save and add">
-    </div>
-</form>
+</div>
 {% endblock %}

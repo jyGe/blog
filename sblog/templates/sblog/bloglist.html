@@ -2,8 +2,6 @@
 {% block title %} Blog List {% endblock %}
 
 {% block content %}
-<!-- <a class="btn" href="{% url 'sblog:addblog' %}" value="{{ choice.id }}"><i class="icon-plus"></i> add new blog</a> -->
-
 <div class="container">
   <div class="blog-header">
     <h1 class="blog-title">Blogs</h1>
@@ -14,9 +12,13 @@
     <div class="col-sm-8 blog-main">
       	{% for blog in blogs %}
 			<div class="blog-post">
-				<h2 class="blog-post-title"><a href="{% url 'sblog:detailblog' blog.id %}">{{ blog.caption }}</a></h2>
-				<p class="blog-post-meta">{{ blog.publish_time }} by {{ blog.author }}</p>
-				<p>{{ blog.content}}</p>
+				<h2 class="blog-post-title"><a href="{% url 'sblog:detailblog' blog.id %}">{{ blog.caption }}</a></h2>					
+					<p class="blog-post-meta">{{ blog.publish_time }} by {{ blog.author }}
+						{% for tag in blog.tags.all %}
+                    		<span class="label label-default">{{ tag }}</span>
+                		{% endfor %}
+					</p>
+				<p>{{ blog.content|truncatewords:30 }}</p>
 			</div><!-- /.blog-post -->
       {% endfor %}
 
@@ -36,6 +38,7 @@
       <div class="sidebar-module sidebar-module-inset">
         <h4>jyGe</h4>
         <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <a class="btn" href="{% url 'sblog:addblog' %}" value="{{ choice.id }}"><i class="icon-plus"></i> add new blog</a>
       </div>
       <div class="sidebar-module">
         <h4>Archives</h4>
