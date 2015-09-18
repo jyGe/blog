@@ -6,7 +6,7 @@ class Tag(models.Model):
 	create_time = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return self.tag_name
+		return self.tag_name	
 
 class Author(models.Model):
 	name = models.CharField(max_length=30)
@@ -25,5 +25,5 @@ class Blog(models.Model):
 	update_time = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return '%s %s %s' %(self.content, self.author, self.publish_time) 
+		return self.caption
 

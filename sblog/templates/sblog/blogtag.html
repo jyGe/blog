@@ -1,0 +1,33 @@
+{% extends "sblog/base.html" %}
+
+{% block title %} Tags {% endblock %}   
+
+{% block content %} 
+
+<div class="container">
+    <div class="blog-header">
+        <h1>{{ tag_name }}</h1>
+    </div>
+<!-- 
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" class="active"><a href="#">Home <span class="badge">42</span></a></li>
+        <li role="presentation"><a href="#">Profile</a></li>
+        <li role="presentation"><a href="#">Messages <span class="badge">3</span></a></li>
+    </ul> -->
+       <div class="row">
+        <div class="col-sm-8 blog-main">
+            {% for blog in blogs_list_with_tag %}
+            <div class="blog-post">
+                <h2 class="blog-post-title"><a href="{% url 'sblog:detailblog' blog.id %}">{{ blog.caption }}</a></h2>                  
+                    <p class="blog-post-meta">{{ blog.publish_time }} by {{ blog.author }}
+                        {% for tag in blog.tags.all %}
+                            <a href="{% url 'sblog:blogtag' tag.tag_name %}"><span class="label label-default">{{ tag }}</span></a>
+                        {% endfor %}
+                    </p>
+                <p>{{ blog.content|truncatewords:30 }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

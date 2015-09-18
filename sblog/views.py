@@ -10,12 +10,6 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
-# class BlogListView(generic.ListView):
-# 	template_name = 'sblog/bloglist.html'
-# 	context_object_name = 'blogs'
-
-# 	def get_queryset(self):
-# 		return Blog.objects.all()
 def listing(request):
 	blog_list = Blog.objects.all()
 	paginator = Paginator(blog_list, 5)
@@ -29,6 +23,14 @@ def listing(request):
 		blogs = paginator.page(paginator.num_pages)
 
 	return render_to_response('sblog/bloglist.html', {'blogs': blogs})
+
+def blog_tag_list(request, tag_name):
+	blogs_list_with_tag = Blog.objects.filter(tags__tag_name=tag_name)
+
+	return render_to_response('sblog/blogtag.html', 
+		{'blogs_list_with_tag': blogs_list_with_tag, 
+		'tag_name': tag_name})
+	# return HttpResponse(blogs_list_with_tag)
 
 class BlogDtailView(generic.DetailView):
 	model = Blog   
