@@ -40,9 +40,20 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'sblog',
     'django_comments',
+    'ckeditor',
 )
 
 SITE_ID = 1
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = 'article_images'
+
+CKEDITOR_CONFIGS = {
+    'ckeditor': {
+        'toolbar': 'Full',
+    }
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

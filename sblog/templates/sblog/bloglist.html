@@ -18,7 +18,7 @@
                     		<a href="{% url 'sblog:blogtag' tag.tag_name %}"><span class="label label-default">{{ tag }}</span></a>
                 		{% endfor %}
 					</p>
-				<p>{{ blog.content|truncatewords:30 }}</p>
+					{{ blog.content|safe|truncatewords_html:30 }}
 			</div><!-- /.blog-post -->
       {% endfor %}
 

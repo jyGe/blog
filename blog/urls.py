@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sblog/', include('sblog.urls', namespace='sblog')),
     url(r'^comments/', include('django_comments.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls', namespace='ckeditor')),
 ]

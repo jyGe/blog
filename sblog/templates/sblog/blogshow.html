@@ -15,59 +15,59 @@
 
   <div class="row">
     <div class="col-sm-8 blog-main">
-    	<p>{{ blog.content }}</p>
+    	{{ blog.content|safe }}
     	<a href="{% url 'sblog:delblog' blog.pk %}" title="delete"><i class="icon-trash"></i>delete this</a>
     	{% block comments %}    
-<article id="cmt">
-    {% get_comment_count for blog as comment_count %}    
-        <h4 class="muted comtop">{{ comment_count }} Comments</h4>
-        <hr class="soften">  
-    {% get_comment_list for blog as blog_com %}
-    {% for comment in blog_com %}
-        <div class="container-fluid none-padding">
-            <p class="muted">
-                <small>{{ comment.user_name }}</small>
-                <small>{{ comment.submit_date|date:"F,j,Y" }}</small>
-            </p>
-            {{ comment.comment }}           
-        </div>
-        <hr class="soften">                   
-    {% endfor %}
-</article>
+		<article id="cmt">
+		    {% get_comment_count for blog as comment_count %}    
+		        <h4 class="muted comtop">{{ comment_count }} Comments</h4>
+		        <hr class="soften">  
+		    {% get_comment_list for blog as blog_com %}
+		    {% for comment in blog_com %}
+		        <div class="container-fluid none-padding">
+		            <p class="muted">
+		                <small>{{ comment.user_name }}</small>
+		                <small>{{ comment.submit_date|date:"F,j,Y" }}</small>
+		            </p>
+		           {{ comment.comment }}		  
+		        </div>
+		        <hr class="soften">                   
+		    {% endfor %}
+		</article>
 
-<article >     
-    {% get_comment_form for blog as blog_form %}  
-        <div id="comment_form">
-            <h4 class="muted comtop">New Comments</h4>
-            <form class="form-horizontal" action="{% comment_form_target %}" method="post">
-                <fieldset>
-                {% csrf_token %}
-                {{ blog_form.object_pk }}
-                {{ blog_form.content_type }}
-                {{ blog_form.timestamp }}
-                {{ blog_form.site }}
-                {{ blog_form.submit_date }}
-                {{ blog_form.security_hash }}
-                <!-- <div class="control-group">
-                    <label class="control-label" for="id_name">name: </label>
-                    <div class="controls">
-                        <input type="text" id="id_name" class="input-xlarge" name="name" placeholder="please enter name" required="required">
-                    </div>
-                </div> -->
-                <b>Name:</b><div><input type="text" name="name" placeholder="please enter name" required="required"></div>
-                <b>Email:</b><div><input type="email" name="email" placeholder="please enter email" required="required"></div>
-                <b>Comment:</b><div><textarea name="comment" required="required"></textarea></div>
-                
-                <p style="display:none;"><label for="id_honeypot">如果你在该字段中输入任何内容，那么你的评论就会被视为垃圾评论。</label> <input type="text" name="honeypot" id="id_honeypot"></p>
-                <div class="form-actions">
-                    <input class="btn btn-info" type="submit" name="submit" value="Submit">
-                    {# <input class="btn btn-info" type="submit" name="preview" value="Preview"> #}
-                    <input type='hidden' name='next' value='{% url "sblog:detailblog" blog.pk %}'/>
-                </div>
-                </fieldset>
-            </form> 
-        </div>
-</article>
+		<article >     
+		    {% get_comment_form for blog as blog_form %}  
+		        <div id="comment_form">
+		            <h4 class="muted comtop">New Comments</h4>
+		            <form class="form-horizontal" action="{% comment_form_target %}" method="post">
+		                <fieldset>
+		                {% csrf_token %}
+		                {{ blog_form.object_pk }}
+		                {{ blog_form.content_type }}
+		                {{ blog_form.timestamp }}
+		                {{ blog_form.site }}
+		                {{ blog_form.submit_date }}
+		                {{ blog_form.security_hash }}
+		                <!-- <div class="control-group">
+		                    <label class="control-label" for="id_name">name: </label>
+		                    <div class="controls">
+		                        <input type="text" id="id_name" class="input-xlarge" name="name" placeholder="please enter name" required="required">
+		                    </div>
+		                </div> -->
+		                <b>Name:</b><div><input type="text" name="name" placeholder="please enter name" required="required"></div>
+		                <b>Email:</b><div><input type="email" name="email" placeholder="please enter email" required="required"></div>
+		                <b>Comment:</b><div><textarea name="comment" required="required"></textarea></div>
+		                
+		                <p style="display:none;"><label for="id_honeypot">如果你在该字段中输入任何内容，那么你的评论就会被视为垃圾评论。</label> <input type="text" name="honeypot" id="id_honeypot"></p>
+		                <div class="form-actions">
+		                    <input class="btn btn-info" type="submit" name="submit" value="Submit">
+		                    {# <input class="btn btn-info" type="submit" name="preview" value="Preview"> #}
+		                    <input type='hidden' name='next' value='{% url "sblog:detailblog" blog.pk %}'/>
+		                </div>
+		                </fieldset>
+		            </form> 
+		        </div>
+		</article>
 {% endblock %}
     </div>
 
@@ -129,6 +129,8 @@ function bindPostCommentHandler() {
 $(document).ready(function() {
     bindPostCommentHandler();
 });
+
+
 </script> 
 {% endblock %}
 

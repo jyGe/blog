@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Tag(models.Model):
@@ -20,7 +21,7 @@ class Blog(models.Model):
 	caption = models.CharField(max_length=50)
 	author = models.ForeignKey(Author)
 	tags = models.ManyToManyField(Tag, blank=True)
-	content = models.TextField()
+	content = RichTextField(config_name='ckeditor')
 	publish_time = models.DateTimeField(auto_now_add=True)
 	update_time = models.DateTimeField(auto_now=True)
 
