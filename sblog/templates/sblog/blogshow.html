@@ -26,8 +26,7 @@
 		    {% for comment in blog_com %}
 		        <div class="container-fluid none-padding">
 		            <p class="muted">
-		                <small>{{ comment.user_name }}</small>
-		                <small>{{ comment.submit_date|date:"F,j,Y" }}</small>
+		                <small><b>{{ comment.user_name }}</b> • {{ comment.submit_date|date:"d/m/y" }}</small>
 		            </p>
 		           {{ comment.comment }}		  
 		        </div>

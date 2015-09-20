@@ -11,7 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def listing(request):
-	blog_list = Blog.objects.all()
+	blog_list = Blog.objects.order_by('-publish_time')
 	paginator = Paginator(blog_list, 5)
 
 	page = request.GET.get('page')
