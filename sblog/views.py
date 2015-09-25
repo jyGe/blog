@@ -1,13 +1,15 @@
-from django.shortcuts import render, get_object_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from sblog.models import Blog, Author, Tag
 from django.views import generic
 from django.http import HttpResponse, HttpResponseRedirect
-from sblog.forms import BlogForm, TagForm
+from sblog.forms import BlogForm, TagForm, LoginForm
 from django.core.urlresolvers import reverse
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def listing(request):
@@ -39,6 +41,7 @@ class BlogDtailView(generic.DetailView):
 def to_blog_add(request):
 	return render(request, 'sblog/blogadd.html')
 
+@login_required(login_url='/sblog/login/', redirect_field_name=None)
 def add_blog(request):
 	if request.method == 'POST':
 		form = BlogForm(request.POST)
@@ -52,7 +55,7 @@ def add_blog(request):
 			title = cd_form['caption']
 			author = Author.objects.get(id=1)
 			content = cd_form['content']
-			blog = Blog(caption=title, author=author, content=content)			
+			blog = Blog(caption=title, author=author, content=content)
 			for taglist in tagname.split():
 				blog.tags.add(Tag.objects.get(tag_name=taglist.strip()))
 				blog.save()
@@ -62,8 +65,11 @@ def add_blog(request):
 		form = BlogForm()
 		tag = TagForm()
 
-	return render_to_response('sblog/blogadd.html', {'form': form, 'tag': tag}, context_instance=RequestContext(request))
+	return render_to_response('sblog/blogadd.html',
+		{'form': form, 'tag': tag},
+		context_instance=RequestContext(request))
 
+@login_required(login_url='/sblog/login/', redirect_field_name=None)
 def delete_blog(request, blog_id):
 	blog = get_object_or_404(Blog, pk=blog_id)
 	if blog:
@@ -71,3 +77,28 @@ def delete_blog(request, blog_id):
 		return HttpResponseRedirect('/sblog/blog/')
 	blogs = Blog.objects.all()
 	return render_to_response('bloglist.html', {'blogs': blogs})
+
+def user_login(request):
+	if request.user.is_authenticated():
+		return HttpResponse("在了")
+	elif request.POST.get('username'):
+		username = request.POST["username"]
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			login(request, user)		
+			return redirect('/sblog/blog/')
+		else:
+			return render_to_response('sblog/login.html',
+				{'warning': 'Please check your username and password'}, 
+				context_instance=RequestContext(request))
+	return render(request, 'sblog/login.html')
+
+
+def user_logout(request):
+	if request.user.is_authenticated():
+		logout(request)		
+		return listing(request)
+	else:		
+		return render_to_response('sblog/login.html',
+			{'warning': 'Login first'})

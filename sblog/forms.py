@@ -6,3 +6,7 @@ class BlogForm(forms.Form):
 
 class TagForm(forms.Form):
 	tag_name = forms.CharField()
+
+class LoginForm(forms.Form):
+	username = forms.CharField()
+	password = forms.CharField()
