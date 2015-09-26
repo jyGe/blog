@@ -52,17 +52,23 @@ class Article(models.Model):
 class WordList(models.Model):
 	word_list_caption = models.CharField(max_length=50)
 	word_list_content = models.TextField()
+	catalogue = models.ForeignKey(Catalogue, default=2)
 	publish_time = models.DateTimeField(auto_now_add=True)
 	update_time = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.word_list_caption
 
+	@property
+	def get_word(self):
+		return self.list.all()
+
 class Word(models.Model):
 	word = models.CharField(max_length=20)
 	word_description = models.TextField()
 	add_time = models.DateTimeField(auto_now_add=True)
-	word_list = ForeignKey(WordList)
+	word_list = models.ForeignKey(WordList, related_name='list')
 
 	def __str__(self):
 		return self.word
+
