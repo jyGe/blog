@@ -1,5 +1,6 @@
 from django.contrib import admin
-from sblog.models import Author, Blog, Tag
+from sblog.models import 
+	Author, Blog, Tag, Word, WordList, Catalogue, Article
 
 # Register your models here.
 class AuthorAdmin(admin.ModelAdmin):
@@ -16,3 +17,8 @@ class BlogAdmin(admin.ModelAdmin):
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Tag)
+
+admin.site.register(Catalogue)
+admin.site.register(Article)
+admin.site.register(Word)
+admin.site.register(WordList)

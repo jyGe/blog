@@ -38,6 +38,7 @@ class BlogDtailView(generic.DetailView):
 	model = Blog   
 	template_name = 'sblog/blogshow.html'
 
+
 def to_blog_add(request):
 	return render(request, 'sblog/blogadd.html')
 
