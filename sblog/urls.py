@@ -14,5 +14,6 @@ urlpatterns = [
 	url(r'^login/$', views.user_login),
 	url(r'^logout/$', views.user_logout),
 
-	# url: about me
+	# url: english
+	url(r'^english/$', views.english_catalogue, name='english_cataloge')	,
 ]

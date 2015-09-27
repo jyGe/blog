@@ -1,0 +1,75 @@
+{% extends "sblog/base.html" %}
+{% block title %} English List {% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="blog-header">
+    <h1 class="blog-title">Catalogue</h1>
+    <p class="lead blog-description"></p>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+    <div>
+      <ul class="nav nav-tabs">
+       {% for catalogue in catalogues %}
+        <li role="presentation" data-toggle="tab"><a href="#{{catalogue.catalogue_name}}">{{ catalogue.catalogue_name}}</a></li>
+       {% endfor %}
+       </ul>
+       </div>
+        <div>
+       {% for article in articles %}
+       <h3 id="essay"><a href="">{{ article.caption }}</a></h3>{% endfor %}
+       {% for word_list in word_lists %}
+       <h3 id="words"><a href="">{{ word_list.word_list_caption }}</a></h3>{% endfor %}
+       </div>
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>jyGe</h4>
+      </div>
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          <li><a href="#">September 2015</a></li>
+          <li><a href="#">August 2015</a></li>
+          <li><a href="#">July 2015</a></li>
+          <li><a href="#">June 2015</a></li>
+          <li><a href="#">May 2015</a></li>
+          <li><a href="#">April 2015</a></li>
+          <li><a href="#">March 2015</a></li>
+          <li><a href="#">February 2015</a></li>
+          <li><a href="#">January 2015</a></li>
+          <li><a href="#">December 2014</a></li>
+          <li><a href="#">November 2014</a></li>
+          <li><a href="#">October 2014</a></li>
+        </ol>
+      </div>
+      <div class="sidebar-module">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="https://github.com/jyGe">GitHub</a></li>
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+  </div><!-- /.row -->
+</div><!-- /.container -->
+
+<script>
+$(document).ready(function(){
+  $("#words").hide()
+  $("#essay").show(500);
+  $("li:first").addClass("active")
+  $("[href='#words']").click(function(){
+    $("#essay").hide();
+    $("#words").show(500);
+  });
+
+  $("[href='#essay']").click(function(){
+    $("#words").hide();
+    $("#essay").show(500);
+  });
+});
+</script>
+{% endblock %}

@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404, render_to_response, redirect
-from sblog.models import Blog, Author, Tag
+from django.shortcuts import (render, 
+	get_object_or_404,render_to_response, redirect)
+from sblog.models import Blog, Author, Tag, Catalogue, Article, Word, WordList
 from django.views import generic
 from django.http import HttpResponse, HttpResponseRedirect
 from sblog.forms import BlogForm, TagForm, LoginForm
@@ -24,12 +25,12 @@ def listing(request):
 	except EmptyPage:
 		blogs = paginator.page(paginator.num_pages)
 
-	return render_to_response('sblog/bloglist.html', {'blogs': blogs})
+	return render(request, 'sblog/bloglist.html', {'blogs': blogs})
 
 def blog_tag_list(request, tag_name):
 	blogs_list_with_tag = Blog.objects.filter(tags__tag_name=tag_name)
 
-	return render_to_response('sblog/blogtag.html', 
+	return render(request, 'sblog/blogtag.html', 
 		{'blogs_list_with_tag': blogs_list_with_tag, 
 		'tag_name': tag_name})
 	# return HttpResponse(blogs_list_with_tag)
@@ -61,7 +62,8 @@ def add_blog(request):
 				blog.tags.add(Tag.objects.get(tag_name=taglist.strip()))
 				blog.save()
 			id = str(Blog.objects.order_by('-publish_time')[0].id)
-			return HttpResponseRedirect(reverse('sblog:detailblog', args=(id,)))
+			return HttpResponseRedirect(reverse('sblog:detailblog', 
+												args=(id,)))
 	else:
 		form = BlogForm()
 		tag = TagForm()
@@ -103,3 +105,13 @@ def user_logout(request):
 	else:		
 		return render_to_response('sblog/login.html',
 			{'warning': 'Login first'})
+
+def english_catalogue(request):
+	catalogues = Catalogue.objects.all()
+	articles = Article.objects.all()
+	word_lists = WordList.objects.all()
+	return render(request, 'sblog/english_catalogue.html',
+		{'catalogues': catalogues,
+		'articles': articles,
+		'word_lists': word_lists,
+		})

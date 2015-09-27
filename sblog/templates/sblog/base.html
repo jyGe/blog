@@ -10,6 +10,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'sblog/blog.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'sblog/signin.css' %}">
     <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>
         {% block title %}{% endblock %}        
     </title>
@@ -20,8 +25,8 @@
     <div class="container">
         <nav class="blog-nav">
           <a class="blog-nav-item" href="#">Home</a>
-          <a class="blog-nav-item active" href="/sblog/blog/">Blog</a>
-          <a class="blog-nav-item" href="#">New Feature</a>
+          <a class="blog-nav-item {% if 'sblog/blog' in request.path %}active{% endif %}" href="/sblog/blog/">Blog</a>
+          <a class="blog-nav-item {% if 'sblog/english' in request.path %}active{% endif %}" href="/sblog/english/">English</a>
           <a class="blog-nav-item" href="#">New Feature</a>
           <a class="blog-nav-item" href="#">About me</a>
         <nav class="blog-nav navbar-right">
@@ -39,10 +44,6 @@
 <footer class="blog-footer">
     <p>Copy and modified by <a href="https://github.com/jyGe">jyGe</a>.</p>
 </footer>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
